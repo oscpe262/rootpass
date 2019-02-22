@@ -1,12 +1,16 @@
 # Ansible role 'ansible-role-rootpass'
 
-An Ansible role for setting up a random root password and push it to a local keystorage.
+An Ansible role for setting up a random root password.
+
+For now, it will save it to a local file, but it is intended to be extended to pushing it to a local keystorage.
 
 ## Requirements
 
 ## Role Variables
 | Variable		| Default		| Comments (type) |
 | :---			| :---			| :---		  |
+| `root_shell` | `/bin/bash` | default shell for root user |
+| `passpath` | /see defaults-file/ | This needs to be set and is the location where pass files are set. This is to be removed down the line. |
 
 ## Dependencies
 
