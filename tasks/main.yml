@@ -1,0 +1,28 @@
+## roles/ansible-role-rootpass/tasks/main.yml
+# vim:ft=ansible:
+---
+### This should be run as a separate task, serial 1, to avoid collision
+
+- name: Create password
+  shell: hexdump -n 16 -v -e '/1 "%02X"' -e '/16 "\n"' /dev/urandom  
+  register: new_password
+
+- debug:
+    msg: '{{ new_password.stdout }}'
+
+- name: Generate password hash
+  shell: python -c 'import crypt; print(crypt.crypt("{{ new_password.stdout }}", crypt.mksalt(crypt.METHOD_SHA512)))'
+  register: new_hash
+
+- name: Adjust root account, including a random password.
+  become: yes
+  user:
+    name: root
+    password: "{{ new_hash.stdout }}" 
+    shell: '{{ root_shell }}'
+
+- name: save locally
+  become: no
+  local_action: shell /bin/bash -c "echo '{{ new_password.stdout }}' > {{ passpath }}{{ ansible_hostname }}.root"
+
+...

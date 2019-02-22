@@ -1,0 +1,4 @@
+## roles/ansible-role-rootpass/handlers/main.yml
+# vim:ft=ansible:
+---
+...

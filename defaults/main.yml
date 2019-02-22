@@ -1,0 +1,6 @@
+## roles/ansible-role-rootpass/defaults/main.yml
+# vim:ft=ansible:
+---
+root_shell: /bin/bash
+passpath: /home/splatrat/Dropbox/ansible/passwords/
+...
